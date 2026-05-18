@@ -1,0 +1,9 @@
+publish_time,DATETIME,records -> publish_time,不需,時間對齊軸心
+curr_load,FLOAT,records -> curr_load,處理缺值與異常值清洗,即時總負載
+curr_util_rate,INT,records -> curr_util_rate,檢驗數值是否介於 0-100 之間,評估目前電網使用率
+fore_peak_resv_rate,FLOAT,records -> fore_peak_resv_rate,注意缺漏值,預估備轉率
+這四項應該是一定要保留
+
+"real_hr_maxi_sply_capacity"今日實績最高供電能力
+"real_hr_peak_time": 今日實績最高用電的時間點 
+這兩項需要嗎? 因為我們選擇以每小時一次的精度 但這兩筆資料的時間點不確定 而且這兩筆資料應該是會浮動的嗎 假如00:00重置 那他的real_hr_peak_time應該會變成00:00嗎?
