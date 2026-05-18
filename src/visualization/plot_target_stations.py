@@ -1,8 +1,12 @@
 import os
+import warnings
 import pandas as pd
 import folium
 import geopandas as gpd
 from shapely.geometry import Point
+
+# 🌟 靜音防呆：關閉 geopandas 座標系統轉換的碎碎念警告
+warnings.filterwarnings("ignore", category=UserWarning)
 
 def main():
     # 1. 動態定位專案根目錄
@@ -10,31 +14,30 @@ def main():
     base_dir = os.path.abspath(os.path.join(current_dir, "..", ".."))
 
     csv_path = os.path.join(base_dir, "data", "raw", "dim_stations.csv")
-    # 🌟 這裡自動改成你換過的高精度地圖路徑
     geojson_path = os.path.join(base_dir, "data", "spatial", "denmark_regions_simplified.geojson")
     output_html_path = os.path.join(base_dir, "outputs", "figures", "Denmark_60_Stations_Regional.html")
 
-    # 2. 讀取資料並篩選 6019-6097
+    # 2. 讀取資料並篩選 6019-6197
     print(f"正在讀取完整測站資料: {csv_path}")
     df = pd.read_csv(csv_path)
     df['station_num'] = pd.to_numeric(df['stationId'], errors='coerce')
-    df_filtered = df[df['station_num'].between(6019, 6097)].copy()
-    print(f"成功篩選出符合 6019-6097 範圍的目標測站，總計: {len(df_filtered)} 個")
+    
+    # 🌟 範圍擴大至 6197
+    df_filtered = df[df['station_num'].between(6019, 6197)].copy()
+    print(f"成功篩選出符合 6019-6197 範圍的目標測站，總計: {len(df_filtered)} 個")
 
     # 3. 讀取區域地圖
-    #print(f"正在載入丹麥區域高精度地圖: {geojson_path}")
     gdf_regions = gpd.read_file(geojson_path)
     
-    # 把地圖資料中的時間物件（Timestamp）全部轉成純文字
+    # 把地圖資料中的時間物件（Timestamp）全部轉成純文字 (防解碼崩潰)
     for col in gdf_regions.columns:
         if gdf_regions[col].dtype == 'object' or str(gdf_regions[col].dtype).startswith('datetime'):
             if gdf_regions[col].apply(lambda x: isinstance(x, pd.Timestamp)).any():
                 gdf_regions[col] = gdf_regions[col].astype(str)
 
     region_column = 'navn'
-    #print(f"🎯 成功對齊！使用地圖的區域名稱欄位: '{region_column}'")
 
-# 4. 空間分析：將測站點配對到行政區 (Spatial Join)
+    # 4. 空間分析：將測站點配對到行政區 (Spatial Join)
     print("正在進行空間分區分析...")
     geometry = [Point(xy) for xy in zip(df_filtered['lon'], df_filtered['lat'])]
     gdf_stations = gpd.GeoDataFrame(df_filtered, geometry=geometry, crs="EPSG:4326")
@@ -50,14 +53,14 @@ def main():
         snapped_stations = gpd.sjoin_nearest(sea_stations, gdf_regions[['geometry', region_column]], how='left')
         joined.loc[sea_mask, region_column] = snapped_stations[region_column].values
 
-    # 🌟 既然全部都完美吸附回陸地，直接使用該欄位，不再填補 "Other/Sea"
+    # 既然全部都完美吸附回陸地，直接使用該欄位，不再填補 "Other/Sea"
     joined['region'] = joined[region_column]
 
-    # 5. 統計各區數量 (這時候只會剩下真正的五大區數據)
+    # 5. 統計各區數量
     stats = joined['region'].value_counts().to_dict()
     total_count = len(joined)
 
-    # 6. 設定五大區顏色對應 (乾淨清爽，不留灰色海域選項)
+    # 6. 設定五大區顏色對應
     color_map = {
         "Region Hovedstaden": "purple",
         "Region Midtjylland": "blue",
@@ -80,7 +83,7 @@ def main():
         }
     ).add_to(m)
 
-    # 8. 投影 24 個測站
+    # 8. 投影測站
     for idx, row in joined.iterrows():
         r = row['region']
         marker_color = color_map.get(r, "gray")
@@ -97,7 +100,7 @@ def main():
             tooltip=f"ID: {station_id_str}"
         ).add_to(m)
 
-    # 9. 建立角落統計表 (因為 stats 是從 value_counts 來的，沒出現的 region 根本不會進迴圈，表格絕對純淨)
+    # 9. 建立角落統計表 
     stats_html = f'''
         <div style="position: fixed; 
                     bottom: 20px; right: 20px; width: 240px; height: auto; 
@@ -105,7 +108,7 @@ def main():
                     z-index: 9999; font-size: 13px; padding: 12px;
                     border-radius: 6px; box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
                     font-family: sans-serif;">
-            <b style="font-size: 14px;">6019-6097 測站區域統計</b><br>
+            <b style="font-size: 14px;">6019-6197 測站區域統計</b><br>
             <hr style="margin: 6px 0; border: 0; border-top: 1px solid #ccc;">
             <table style="width: 100%; border-collapse: collapse;">
     '''
@@ -123,6 +126,9 @@ def main():
     m.get_root().html.add_child(folium.Element(stats_html))
 
     # 10. 儲存 HTML
+    # 🌟 自動建資料夾防呆：就算 outputs/figures 不存在也會自動生出來
+    os.makedirs(os.path.dirname(output_html_path), exist_ok=True)
+    
     m.save(output_html_path)
     print(f"🎉 帶分區統計的地圖已完美生成！請查看: {output_html_path}")
 
