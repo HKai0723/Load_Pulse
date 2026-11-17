@@ -64,7 +64,7 @@ def plot_denmark_charts():
             columns="day_of_week",
             values=f"{key}_load_mw",
             aggfunc="mean",
-        ).reindex(index=range(24), columns=range(7))
+        ).reindex(index=range(24), columns=range(1, 8))
 
         im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
         ax.set_title(title, fontsize=11, fontweight="bold")
@@ -140,7 +140,7 @@ def plot_australia_charts():
             columns="day_of_week",
             values=f"{key}_load_mw",
             aggfunc="mean",
-        ).reindex(index=range(24), columns=range(7))
+        ).reindex(index=range(24), columns=range(1, 8))
 
         im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
         ax.set_title(title, fontsize=11, fontweight="bold")
@@ -216,7 +216,7 @@ def plot_us_eia_charts():
             columns="day_of_week",
             values=f"{ba}_load_mw",
             aggfunc="mean",
-        ).reindex(index=range(24), columns=range(7))
+        ).reindex(index=range(24), columns=range(1, 8))
 
         im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
         ax.set_title(title, fontsize=10.5, fontweight="bold")

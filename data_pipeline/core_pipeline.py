@@ -212,9 +212,9 @@ def generate_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
     """依據當地作息時間 (timestamp_local) 產生 hour, day_of_week, is_weekend。"""
     df = df.copy()
     df["hour"] = df["timestamp_local"].dt.hour
-    df["day_of_week"] = df["timestamp_local"].dt.dayofweek  # 0=週一, 6=週日
-    df["is_weekend"] = df["day_of_week"].isin([5, 6]).astype(int)
-    print("[9/10] generate_calendar_features(): 已產生 hour, day_of_week, is_weekend 欄位")
+    df["day_of_week"] = df["timestamp_local"].dt.dayofweek + 1  # 1=週一, 7=週日 (ISO-8601)
+    df["is_weekend"] = df["day_of_week"].isin([6, 7]).astype(int)
+    print("[9/10] generate_calendar_features(): 已產生 hour, day_of_week (1-7), is_weekend 欄位")
     return df
 
 
