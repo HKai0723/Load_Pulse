@@ -1,3 +1,6 @@
-data/
-outputs/
 __pycache__/
+*.pyc
+*.db
+*.parquet
+.env
+archive/
