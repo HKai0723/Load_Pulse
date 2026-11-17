@@ -13,27 +13,29 @@ plt.rcParams["axes.unicode_minus"] = False
 
 
 def plot_denmark_charts():
-    pilot_file = PROCESSED_DIR / "pilot_load_hourly.csv"
-    if not pilot_file.exists():
+    dk_file = PROCESSED_DIR / "DK_Energinet_hourly_202101.csv"
+    if not dk_file.exists():
         return
 
-    df = pd.read_csv(pilot_file)
+    df = pd.read_csv(dk_file)
     df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
-    missing_rows = df[df["load_mw"].isna()]
+    missing_rows = df[df["DK1_load_mw"].isna() | df["DK2_load_mw"].isna()]
 
-    fig, ax = plt.subplots(figsize=(14, 5), dpi=150)
-    ax.plot(df["timestamp_utc"], df["load_mw"], color="#1f77b4", linewidth=1.2, label="Hourly Load (MW)")
+    # 1. 丹麥 DK1 與 DK2 逐小時負載對比曲線
+    fig, ax = plt.subplots(figsize=(14, 5.2), dpi=150)
+    ax.plot(df["timestamp_utc"], df["DK1_load_mw"], color="#2563eb", linewidth=1.2, label="DK1 (West Denmark - Continental Grid)")
+    ax.plot(df["timestamp_utc"], df["DK2_load_mw"], color="#d97706", linewidth=1.2, label="DK2 (East Denmark - Nordic Grid)")
 
     for idx, ts in enumerate(missing_rows["timestamp_utc"]):
         ax.axvline(
             ts,
-            color="#d62728",
+            color="#dc2626",
             linestyle="--",
             linewidth=1.2,
             label="Missing Hour (NaN)" if idx == 0 else "",
         )
 
-    ax.set_title("Denmark National Hourly Electricity Load (2021-01 Pilot)", fontsize=13, fontweight="bold")
+    ax.set_title("Denmark Energinet Zonal Hourly Electricity Load: DK1 vs. DK2 (2021-01)", fontsize=13, fontweight="bold")
     ax.set_xlabel("Date (UTC)", fontsize=11)
     ax.set_ylabel("Load (MW)", fontsize=11)
     ax.grid(True, linestyle=":", alpha=0.6)
@@ -42,26 +44,52 @@ def plot_denmark_charts():
     fig.savefig(FIGURES_DIR / "dk_202101_hourly_load_curve.png")
     plt.close(fig)
 
-    pivot_df = df.pivot_table(index="hour", columns="day_of_week", values="load_mw", aggfunc="mean")
-    pivot_df = pivot_df.reindex(index=range(24), columns=range(7))
+    # 2. 丹麥全國總負載、DK1 與 DK2 之小時 × 星期幾平均負載熱圖 (1x3 子圖)
+    df["DK_TOTAL_load_mw"] = df["DK1_load_mw"] + df["DK2_load_mw"]
+    panels = [
+        ("DK_TOTAL", "Denmark National Total"),
+        ("DK1", "DK1 (West - Continental Grid)"),
+        ("DK2", "DK2 (East - Nordic Grid)"),
+    ]
 
-    fig, ax = plt.subplots(figsize=(9, 7), dpi=150)
-    im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
+    fig, axes = plt.subplots(1, 3, figsize=(15.5, 5.2), dpi=150)
+    day_labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    hour_ticks = [0, 4, 8, 12, 16, 20]
+    hour_labels = [f"{h:02d}:00" for h in hour_ticks]
 
-    day_labels = ["Mon (0)", "Tue (1)", "Wed (2)", "Thu (3)", "Fri (4)", "Sat (5)", "Sun (6)"]
-    ax.set_xticks(np.arange(len(day_labels)))
-    ax.set_xticklabels(day_labels)
-    ax.set_yticks(np.arange(24))
-    ax.set_yticklabels([f"{h:02d}:00" for h in range(24)])
+    for idx, (key, title) in enumerate(panels):
+        ax = axes[idx]
+        pivot_df = df.pivot_table(
+            index="hour",
+            columns="day_of_week",
+            values=f"{key}_load_mw",
+            aggfunc="mean",
+        ).reindex(index=range(24), columns=range(7))
 
-    ax.set_title("Denmark Average Hourly Load Heatmap (Local Time)", fontsize=12, fontweight="bold")
-    ax.set_xlabel("Day of Week", fontsize=11)
-    ax.set_ylabel("Local Hour (Europe/Copenhagen)", fontsize=11)
-    fig.colorbar(im, ax=ax).set_label("Mean Load (MW)", fontsize=10)
+        im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
+        ax.set_title(title, fontsize=11, fontweight="bold")
+        ax.set_xticks(np.arange(len(day_labels)))
+        ax.set_xticklabels(day_labels, fontsize=9)
+        ax.set_yticks(hour_ticks)
+        ax.set_yticklabels(hour_labels, fontsize=9)
+        ax.set_xlabel("Day of Week", fontsize=10)
+        if idx == 0:
+            ax.set_ylabel("Local Hour (Europe/Copenhagen)", fontsize=10)
+
+        cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+        cbar.ax.tick_params(labelsize=8)
+        cbar.set_label("MW", fontsize=8)
+
+    fig.suptitle(
+        "Denmark Average Hourly Load Heatmap: Hour vs. Day of Week (2021-01)",
+        fontsize=13.5,
+        fontweight="bold",
+        y=0.99,
+    )
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "dk_202101_hour_dow_heatmap.png")
     plt.close(fig)
-    print("已更新丹麥品質報告圖表。")
+    print("已更新丹麥 DK1 / DK2 品質報告圖表。")
 
 
 def plot_australia_charts():
@@ -150,7 +178,6 @@ def plot_us_eia_charts():
     df = pd.read_csv(us_file)
     df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
 
-    # 依平均負載規模由高至低排列 8 大調度區
     ba_panels = [
         ("PJM", "PJM (Mid-Atlantic & Midwest)"),
         ("MISO", "MISO (Midcontinent)"),
@@ -162,7 +189,6 @@ def plot_us_eia_charts():
         ("PNM", "PNM (New Mexico)"),
     ]
 
-    # 1. 美國八大調度區逐小時負載對比曲線
     fig, ax = plt.subplots(figsize=(14, 5.5), dpi=150)
     for ba, _ in ba_panels:
         col = f"{ba}_load_mw"
@@ -178,7 +204,6 @@ def plot_us_eia_charts():
     fig.savefig(FIGURES_DIR / "us_202101_ba_load_curve.png")
     plt.close(fig)
 
-    # 2. 美國八大調度區之小時 (UTC) × 星期幾平均負載熱圖 (2x4 子圖)
     fig, axes = plt.subplots(2, 4, figsize=(17, 8.5), dpi=150)
     day_labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     hour_ticks = [0, 4, 8, 12, 16, 20]
@@ -216,10 +241,9 @@ def plot_us_eia_charts():
         y=0.99,
     )
     fig.tight_layout()
-    heatmap_path = FIGURES_DIR / "us_202101_hour_dow_heatmap.png"
-    fig.savefig(heatmap_path)
+    fig.savefig(FIGURES_DIR / "us_202101_hour_dow_heatmap.png")
     plt.close(fig)
-    print(f"已產生美國品質報告圖表：{heatmap_path}")
+    print("已產生美國品質報告圖表。")
 
 
 if __name__ == "__main__":

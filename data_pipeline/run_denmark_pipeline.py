@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from core_pipeline import (
+    PIPELINE_VERSION,
     load_raw_data,
     normalize_timestamp,
     validate_frequency,
@@ -10,74 +11,61 @@ from core_pipeline import (
     generate_quality_flags,
     resample_hourly,
     generate_calendar_features,
-    export_clean_dataset,
 )
 
-# ================= 動態定位專案根目錄 (Load_Pulse) =================
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-
 RAW_FILE = PROJECT_ROOT / "data" / "raw" / "Denmark_Energinet" / "DK_ConsumptionCategory_RAW_202101.csv"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 
-PILOT_OUT = PROCESSED_DIR / "pilot_load_hourly.csv"
-FULL_QC_OUT = PROCESSED_DIR / "DK_load_hourly_202101_full_qc.csv"
-
+ZONES = ["DK1", "DK2"]
 LOCAL_TZ = "Europe/Copenhagen"
 START_UTC = "2021-01-01T00:00:00"
 END_UTC = "2021-01-31T23:00:00"
-# ===================================================================
 
 
-def run_denmark_202101():
-    print(f"📂 專案根目錄自動定位為：{PROJECT_ROOT}")
-    print("🚀 開始執行丹麥 Energinet (2021-01) 標準化資料清洗管線...\n")
+def map_denmark_grid_zone(region_name: str) -> str:
+    """依丹麥五大行政區映射至非同步電網分區 (DK1: 西丹麥大陸電網, DK2: 東丹麥北歐電網)。"""
+    name = str(region_name).lower()
+    if any(k in name for k in ("nordjylland", "midtjylland", "syddanmark")):
+        return "DK1"
+    if any(k in name for k in ("sjælland", "sjaelland", "hovedstaden")):
+        return "DK2"
+    raise ValueError(f"無法識別之丹麥行政區名稱：{region_name}")
 
-    # 1. 讀取原始檔
-    df_raw, lineage = load_raw_data(
-        file_path=RAW_FILE,
-        source_name="Energinet_ConsumptionConsumerCategoryHour",
-    )
-    print(f"   原始欄位清單：{df_raw.columns.tolist()}")
 
-    # 自動偵測時間與電量欄位名稱（相容新版 TimeUTC 與舊版 HourUTC）
-    utc_col = next((c for c in ["TimeUTC", "HourUTC"] if c in df_raw.columns), None)
-    dk_col = next((c for c in ["TimeDK", "HourDK"] if c in df_raw.columns), utc_col)
-    val_col = next((c for c in ["ConsumptionkWh", "TotalCon"] if c in df_raw.columns), None)
+def clean_single_zone(df_zone: pd.DataFrame, zone: str, utc_col: str) -> tuple[pd.DataFrame, dict]:
+    """針對單一丹麥電網分區 (DK1 / DK2) 執行彙總、單位換算與品質檢核。"""
+    cat_col = next((c for c in df_zone.columns if "category" in c.lower()), None)
+    if cat_col:
+        expected_combos = len(df_zone[["RegionName", cat_col]].drop_duplicates())
+    else:
+        expected_combos = 9 if zone == "DK1" else 6
 
-    if not utc_col or not val_col:
-        raise KeyError(f"找不到預期時間或電量欄位，目前欄位有：{df_raw.columns.tolist()}")
-
-    # 丹麥前處理轉接：將各大區與三大部門之每小時 kWh 彙總為全丹麥逐時總用電量，並換算為 MW
     df_agg = (
-        df_raw.groupby(utc_col, as_index=False)
+        df_zone.groupby(utc_col, as_index=False)
         .agg(
             raw_timestamp=(utc_col, "first"),
-            raw_hour_dk=(dk_col, "first"),
-            total_kwh=(val_col, lambda s: s.sum(min_count=1)),
+            load_kwh=("ConsumptionkWh", lambda s: s.sum(min_count=expected_combos)),
         )
     )
-    df_agg["load_mw"] = df_agg["total_kwh"] / 1000.0
+    # 先由 kWh 除以 1,000 換算為 MWh，以符合 core_pipeline 支援的 energy_mwh 單位規範
+    df_agg["load_mwh"] = df_agg["load_kwh"] / 1000.0
+    df_agg["period_utc"] = pd.to_datetime(df_agg[utc_col], utc=True)
 
-    # 2. 統一時區與時間欄位
     df_norm = normalize_timestamp(
         df_agg,
-        utc_col=utc_col,
+        utc_col="period_utc",
         local_tz=LOCAL_TZ,
         raw_ts_col="raw_timestamp",
     )
 
-    # 3. 檢查取樣間隔
     validate_frequency(df_norm, expected_freq="1h")
-
-    # 5. 偵測重複時間戳記
     df_dedup = detect_duplicates(df_norm)
     ts_map = df_dedup[["timestamp_utc", "raw_timestamp", "is_duplicate"]].drop_duplicates("timestamp_utc")
 
-    # 8. 確保時間對齊標準逐小時
-    df_hourly = resample_hourly(df_dedup, value_col="load_mw", unit_type="power_mw")
+    df_hourly = resample_hourly(df_dedup, value_col="load_mwh", unit_type="energy_mwh")
     df_hourly = pd.merge(df_hourly, ts_map, on="timestamp_utc", how="left")
 
-    # 4. 偵測時間缺口（補齊 2021-01 全部 744 個 UTC 小時）
     df_complete = detect_missing_hours(
         df_hourly,
         start_utc=START_UTC,
@@ -86,40 +74,118 @@ def run_denmark_202101():
     )
     df_complete["is_duplicate"] = df_complete["is_duplicate"].fillna(0).astype(int)
 
-    # 6. 檢查數值範圍與可疑極端值
-    df_validated = validate_load_values(df_complete, min_valid_mw=1000.0, max_valid_mw=10000.0)
-
-    # 7. 產生品質旗標
+    df_validated = validate_load_values(df_complete, min_valid_mw=200.0, max_valid_mw=10000.0)
     df_flagged = generate_quality_flags(df_validated, is_source_revised=False)
-
-    # 9. 產生日期、星期、時段欄位
     df_final = generate_calendar_features(df_flagged)
 
-    # 10. 輸出清洗結果
-    export_clean_dataset(
-        df=df_final,
-        lineage=lineage,
-        pilot_output_path=PILOT_OUT,
-        full_qc_output_path=FULL_QC_OUT,
+    summary = {
+        "zone": zone,
+        "raw_rows": len(df_zone),
+        "hourly_rows": len(df_final),
+        "missing": int(df_final["is_missing"].sum()),
+        "outliers": int(df_final["is_suspected_outlier"].sum()),
+        "min_mw": round(df_final["load_mw"].min(), 2),
+        "mean_mw": round(df_final["load_mw"].mean(), 2),
+        "max_mw": round(df_final["load_mw"].max(), 2),
+    }
+    return df_final, summary
+
+
+def run_unified_denmark_202101():
+    print(f"專案根目錄：{PROJECT_ROOT}\n")
+
+    df_raw, _ = load_raw_data(
+        file_path=RAW_FILE,
+        source_name="Energinet_ConsumptionCategory_DK1_DK2",
     )
 
-    # ================= 印出品質報告摘要數據 =================
-    print("\n" + "=" * 55)
-    print("📋 丹麥 2021-01 清洗品質摘要（可直接填入 data_quality_report.md）")
-    print("=" * 55)
-    print(f"• 原始明細總筆數：{lineage['raw_row_count']:,} 筆（含全丹麥行政區與用戶分類）")
-    print(f"• 聚合後逐時筆數：{len(df_final)} 筆（2021-01 共 31 天 × 24 小時）")
-    print(f"• 缺失小時數 (is_missing)：{int(df_final['is_missing'].sum())} 筆 (缺失率 {df_final['is_missing'].mean()*100:.2f}%)")
-    print(f"• 重複時間戳記 (is_duplicate)：{int(df_final['is_duplicate'].sum())} 筆")
-    print(f"• DST 切換時數 (is_dst_transition)：{int(df_final['is_dst_transition'].sum())} 筆")
-    print(f"• 可疑極端值 (is_suspected_outlier)：{int(df_final['is_suspected_outlier'].sum())} 筆")
-    print(f"• 負載統計 (MW)：最小值 {df_final['load_mw'].min():.2f} | 平均 {df_final['load_mw'].mean():.2f} | 最大值 {df_final['load_mw'].max():.2f}")
-    print("=" * 55)
+    utc_col = next((c for c in ["TimeUTC", "HourUTC"] if c in df_raw.columns), None)
+    if utc_col is None or "RegionName" not in df_raw.columns or "ConsumptionkWh" not in df_raw.columns:
+        raise KeyError(f"原始檔案缺少必要欄位，目前欄位：{df_raw.columns.tolist()}")
 
-    print("\n📊 pilot_load_hourly.csv 前 5 筆預覽：")
-    preview_cols = ["timestamp_utc", "timestamp_local", "load_mw", "hour", "day_of_week", "is_weekend", "quality_flag"]
-    print(df_final[preview_cols].head(5).to_string(index=False))
+    df_raw["ConsumptionkWh"] = pd.to_numeric(df_raw["ConsumptionkWh"], errors="coerce")
+    df_raw["grid_zone"] = df_raw["RegionName"].apply(map_denmark_grid_zone)
+
+    zone_dfs: dict[str, pd.DataFrame] = {}
+    summaries = []
+
+    for zone in ZONES:
+        print(f"\n{'=' * 55}")
+        print(f"處理丹麥 Energinet 電網分區：{zone}")
+        print(f"{'=' * 55}")
+        df_sub = df_raw[df_raw["grid_zone"] == zone].copy()
+        df_cleaned, stat = clean_single_zone(df_sub, zone, utc_col)
+        zone_dfs[zone] = df_cleaned
+        summaries.append(stat)
+
+    # 以 DK1 建立唯一 UTC 主鍵與共用日曆基底表
+    base_df = zone_dfs["DK1"][
+        ["timestamp_utc", "timestamp_local", "iana_tz", "hour", "day_of_week", "is_weekend"]
+    ].copy()
+
+    clean_unified = base_df[["timestamp_utc", "timestamp_local", "hour", "day_of_week", "is_weekend"]].copy()
+    full_qc_unified = base_df.copy()
+
+    qc_flag_cols = [
+        "is_missing",
+        "is_duplicate",
+        "is_dst_transition",
+        "is_imputed",
+        "is_suspected_outlier",
+        "is_source_revised",
+        "quality_flag",
+    ]
+
+    for zone in ZONES:
+        df_z = zone_dfs[zone].copy()
+        df_z["load_mw"] = df_z["load_mw"].round(3)
+
+        sub_clean = df_z[["timestamp_utc", "load_mw", "quality_flag"]].rename(
+            columns={
+                "load_mw": f"{zone}_load_mw",
+                "quality_flag": f"{zone}_quality_flag",
+            }
+        )
+        clean_unified = pd.merge(
+            clean_unified, sub_clean, on="timestamp_utc", how="outer", validate="one_to_one"
+        )
+
+        rename_map = {"raw_timestamp": f"{zone}_raw_timestamp", "load_mw": f"{zone}_load_mw"}
+        for col in qc_flag_cols:
+            rename_map[col] = f"{zone}_{col}"
+
+        sub_qc = df_z[["timestamp_utc", "raw_timestamp", "load_mw"] + qc_flag_cols].rename(columns=rename_map)
+        full_qc_unified = pd.merge(
+            full_qc_unified, sub_qc, on="timestamp_utc", how="outer", validate="one_to_one"
+        )
+
+    clean_unified = clean_unified.sort_values("timestamp_utc").reset_index(drop=True)
+    full_qc_unified = full_qc_unified.sort_values("timestamp_utc").reset_index(drop=True)
+    assert clean_unified["timestamp_utc"].is_unique, "主鍵驗證失敗：timestamp_utc 存在重複值"
+
+    for df_out in (clean_unified, full_qc_unified):
+        df_out["timestamp_utc"] = df_out["timestamp_utc"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+        df_out["timestamp_local"] = df_out["timestamp_local"].apply(lambda ts: ts.isoformat())
+
+    full_qc_unified["source_name"] = "Energinet_ConsumptionCategory_DK1_DK2"
+    full_qc_unified["pipeline_version"] = PIPELINE_VERSION
+
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    clean_out = PROCESSED_DIR / "DK_Energinet_hourly_202101.csv"
+    full_qc_out = PROCESSED_DIR / "DK_Energinet_hourly_202101_full_qc.csv"
+
+    clean_unified.to_csv(clean_out, index=False, encoding="utf-8-sig")
+    full_qc_unified.to_csv(full_qc_out, index=False, encoding="utf-8-sig")
+
+    print("\n" + "=" * 75)
+    print("丹麥 Energinet (DK1 / DK2) 統一寬表輸出完成")
+    print("=" * 75)
+    print(f"• 標準統一檔：{clean_out} ({len(clean_unified)} 筆, 唯一 PK: timestamp_utc)")
+    print(f"• 完整稽核檔：{full_qc_out}")
+    print("-" * 75)
+    print(pd.DataFrame(summaries).to_string(index=False))
+    print("=" * 75)
 
 
 if __name__ == "__main__":
-    run_denmark_202101()
+    run_unified_denmark_202101()
