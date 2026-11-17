@@ -73,7 +73,6 @@ def plot_australia_charts():
     df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
     regions = ["NSW1", "QLD1", "VIC1", "SA1", "TAS1"]
 
-    # 1. 澳洲五大調度區逐小時負載對比曲線
     fig, ax = plt.subplots(figsize=(14, 5.5), dpi=150)
     for region in regions:
         col = f"{region}_load_mw"
@@ -89,7 +88,6 @@ def plot_australia_charts():
     fig.savefig(FIGURES_DIR / "au_202101_regions_load_curve.png")
     plt.close(fig)
 
-    # 2. 澳洲 NEM 總負載與五大調度區之小時×星期幾平均負載熱圖 (2x3 子圖)
     load_cols = [f"{r}_load_mw" for r in regions if f"{r}_load_mw" in df.columns]
     df["NEM_TOTAL_load_mw"] = df[load_cols].sum(axis=1)
 
@@ -139,12 +137,92 @@ def plot_australia_charts():
         y=0.99,
     )
     fig.tight_layout()
-    heatmap_path = FIGURES_DIR / "au_202101_hour_dow_heatmap.png"
+    fig.savefig(FIGURES_DIR / "au_202101_hour_dow_heatmap.png")
+    plt.close(fig)
+    print("已更新澳洲品質報告圖表。")
+
+
+def plot_us_eia_charts():
+    us_file = PROCESSED_DIR / "US_EIA_ALL_hourly_202101.csv"
+    if not us_file.exists():
+        return
+
+    df = pd.read_csv(us_file)
+    df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
+
+    # 依平均負載規模由高至低排列 8 大調度區
+    ba_panels = [
+        ("PJM", "PJM (Mid-Atlantic & Midwest)"),
+        ("MISO", "MISO (Midcontinent)"),
+        ("ERCO", "ERCO (ERCOT Texas)"),
+        ("SWPP", "SWPP (Southwest Power Pool)"),
+        ("CISO", "CISO (California ISO)"),
+        ("NYIS", "NYIS (New York ISO)"),
+        ("ISNE", "ISNE (ISO New England)"),
+        ("PNM", "PNM (New Mexico)"),
+    ]
+
+    # 1. 美國八大調度區逐小時負載對比曲線
+    fig, ax = plt.subplots(figsize=(14, 5.5), dpi=150)
+    for ba, _ in ba_panels:
+        col = f"{ba}_load_mw"
+        if col in df.columns:
+            ax.plot(df["timestamp_utc"], df[col], linewidth=1.1, label=ba)
+
+    ax.set_title("US EIA Major Balancing Authorities Hourly Load (2021-01)", fontsize=13, fontweight="bold")
+    ax.set_xlabel("Date (UTC)", fontsize=11)
+    ax.set_ylabel("System Demand (MW)", fontsize=11)
+    ax.grid(True, linestyle=":", alpha=0.6)
+    ax.legend(loc="upper right", ncol=4)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "us_202101_ba_load_curve.png")
+    plt.close(fig)
+
+    # 2. 美國八大調度區之小時 (UTC) × 星期幾平均負載熱圖 (2x4 子圖)
+    fig, axes = plt.subplots(2, 4, figsize=(17, 8.5), dpi=150)
+    day_labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    hour_ticks = [0, 4, 8, 12, 16, 20]
+    hour_labels = [f"{h:02d}:00" for h in hour_ticks]
+
+    for idx, (ba, title) in enumerate(ba_panels):
+        ax = axes[idx // 4, idx % 4]
+        pivot_df = df.pivot_table(
+            index="hour",
+            columns="day_of_week",
+            values=f"{ba}_load_mw",
+            aggfunc="mean",
+        ).reindex(index=range(24), columns=range(7))
+
+        im = ax.imshow(pivot_df.values, aspect="auto", cmap="YlOrRd")
+        ax.set_title(title, fontsize=10.5, fontweight="bold")
+        ax.set_xticks(np.arange(len(day_labels)))
+        ax.set_xticklabels(day_labels, fontsize=8.5)
+        ax.set_yticks(hour_ticks)
+        ax.set_yticklabels(hour_labels, fontsize=8.5)
+
+        if idx % 4 == 0:
+            ax.set_ylabel("Hour (UTC)", fontsize=10)
+        if idx // 4 == 1:
+            ax.set_xlabel("Day of Week (UTC)", fontsize=9.5)
+
+        cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+        cbar.ax.tick_params(labelsize=8)
+        cbar.set_label("MW", fontsize=8)
+
+    fig.suptitle(
+        "US EIA Average Hourly Load Heatmap: Hour (UTC) vs. Day of Week (2021-01)",
+        fontsize=14,
+        fontweight="bold",
+        y=0.99,
+    )
+    fig.tight_layout()
+    heatmap_path = FIGURES_DIR / "us_202101_hour_dow_heatmap.png"
     fig.savefig(heatmap_path)
     plt.close(fig)
-    print(f"已產生澳洲品質報告圖表：{heatmap_path}")
+    print(f"已產生美國品質報告圖表：{heatmap_path}")
 
 
 if __name__ == "__main__":
     plot_denmark_charts()
     plot_australia_charts()
+    plot_us_eia_charts()
