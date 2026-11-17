@@ -7,26 +7,31 @@
 ```text
 Load_Pulse/
 ├── data/
-│   ├── raw/                        # 各國官方未加工原始資料（唯讀保存，絕不覆寫）
-│   │   ├── Australia_AEMO/         # 澳洲國家電力市場 (NEM 五大調度區)
-│   │   ├── Denmark_Energinet/      # 丹麥輸電系統調度中心 (Energinet)
-│   │   └── US_EIA_Demand/          # 美國聯邦能源資訊署 (EIA 次平衡區)
-│   └── processed/                  # 清洗後之標準化輸出資料
-│       ├── pilot_load_hourly.csv               # 標準 7 欄位逐時 Pilot 檔（供建模組使用）
-│       └── DK_load_hourly_202101_full_qc.csv   # 含完整品質旗標與溯源欄位之檢核檔
-├── data_pipeline/                  # 核心清洗與視覺化管線
-│   ├── core_pipeline.py            # 通用 10 項標準化清洗與品質檢核函式
-│   ├── run_denmark_pipeline.py     # 丹麥資料前處理與管線執行入口
-│   └── plot_quality_report.py      # 品質報告圖表自動繪製腳本
+│   ├── raw/                                # 各國官方未加工原始資料（唯讀保存，絕不覆寫）
+│   │   ├── Australia_AEMO/                 # 澳洲國家電力市場 (NEM 五大調度區)
+│   │   ├── Denmark_Energinet/              # 丹麥輸電系統調度中心 (Energinet)
+│   │   └── US_EIA_Demand/                  # 美國聯邦能源資訊署 (EIA 次平衡區)
+│   └── processed/                          # 清洗後之標準化輸出資料
+│       ├── pilot_load_hourly.csv                   # 丹麥標準 7 欄位逐時 Pilot 檔
+│       ├── DK_load_hourly_202101_full_qc.csv       # 丹麥完整品質旗標與溯源檢核檔
+│       ├── AU_AEMO_NEM_hourly_202101.csv           # 澳洲五大調度區逐時統一寬表 (PK: timestamp_utc)
+│       └── AU_AEMO_NEM_hourly_202101_full_qc.csv   # 澳洲完整品質旗標與溯源檢核寬表
+├── data_pipeline/                          # 核心資料清洗與標準化管線
+│   ├── core_pipeline.py                    # 通用 10 項標準化清洗與品質檢核函式
+│   ├── run_denmark_pipeline.py             # 丹麥資料前處理與管線執行入口
+│   └── run_australia_pipeline.py           # 澳洲五大調度區前處理與寬表整合入口
 ├── src/
-│   └── data_collection/            # 各國原始資料獨立擷取腳本
-│       ├── fetch_denmark.py
-│       ├── fetch_australia.py
-│       └── fetch_us_eia.py
+│   ├── data_collection/                    # 各國原始資料獨立擷取腳本
+│   │   ├── fetch_denmark.py
+│   │   ├── fetch_australia.py
+│   │   └── fetch_us_eia.py
+│   └── visualization/                      # 品質檢核視覺化腳本
+│       └── plot_quality_report.py
 ├── outputs/
-│   └── figures/                    # 品質檢核視覺化圖表 (.png)
-├── reports/                        # 工程評估與品質檢核報告
-│   ├── data_source_review.md       # 跨國資料來源調查與選定評估報告
-│   └── data_quality_report.md      # 資料清洗品質體檢報告
-├── .env                            # 本機 API 金鑰設定
+│   └── figures/                            # 品質檢核視覺化圖表 (.png)
+├── reports/                                # 工程評估與品質檢核報告
+│   ├── data_source_review.md               # 跨國資料來源調查與選定評估報告
+│   ├── dk_data_quality_report.md           # 丹麥 Pilot 資料品質檢核報告
+│   └── au_data_quality_report.md           # 澳洲 AEMO NEM 資料品質檢核報告
+├── .env                                    # 本機 API 金鑰設定（已列入 .gitignore，不上傳）
 └── .gitignore
