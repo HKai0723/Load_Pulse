@@ -1,0 +1,243 @@
+region_id,local_date,day_type,holiday_name,scope,event_category,source_url,notes
+VIC1,2007-01-16,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
+VIC1,2007-01-17,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
+VIC1,2009-01-27,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
+VIC1,2009-01-28,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
+VIC1,2009-01-29,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
+VIC1,2009-01-30,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
+VIC1,2009-02-07,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-08,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-09,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-10,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-11,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-12,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-13,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-14,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-15,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-16,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-17,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-18,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-19,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-20,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-21,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-22,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-23,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-24,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-25,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-26,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-27,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-02-28,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-01,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-02,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-03,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-04,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-05,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-06,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-07,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-08,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-09,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-10,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-11,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-12,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-13,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2009-03-14,EMERGENCY_CLOSURE,2009 Black Saturday Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/Black_Saturday_bushfires,黑色星期六大火重創全州，多處撤離停課
+VIC1,2010-03-06,EMERGENCY_CLOSURE,2010 Melbourne Severe Storm,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-storm-melbourne-victoria-2010/,墨爾本及全州強風暴冰雹，14.5萬戶停電
+VIC1,2010-03-07,EMERGENCY_CLOSURE,2010 Melbourne Severe Storm,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-storm-melbourne-victoria-2010/,墨爾本及全州強風暴冰雹，14.5萬戶停電
+VIC1,2010-09-04,EMERGENCY_CLOSURE,September 2010 Victoria Floods,STATEWIDE,CYCLONE_FLOOD,https://en.wikipedia.org/wiki/September_2010_Victoria_floods,全州35河氾濫，維州宣布進入緊急狀態
+VIC1,2010-09-05,EMERGENCY_CLOSURE,September 2010 Victoria Floods,STATEWIDE,CYCLONE_FLOOD,https://en.wikipedia.org/wiki/September_2010_Victoria_floods,全州35河氾濫，維州宣布進入緊急狀態
+VIC1,2010-09-06,EMERGENCY_CLOSURE,September 2010 Victoria Floods,STATEWIDE,CYCLONE_FLOOD,https://en.wikipedia.org/wiki/September_2010_Victoria_floods,全州35河氾濫，維州宣布進入緊急狀態
+VIC1,2010-09-07,EMERGENCY_CLOSURE,September 2010 Victoria Floods,STATEWIDE,CYCLONE_FLOOD,https://en.wikipedia.org/wiki/September_2010_Victoria_floods,全州35河氾濫，維州宣布進入緊急狀態
+VIC1,2019-01-24,EMERGENCY_CLOSURE,2019 Victoria Heatwave Load Shedding,STATEWIDE,OTHER_EMERGENCY,https://www.aemo.com.au/-/media/files/electricity/nem/market_notices_and_events/power_system_incident_reports/2019/load-shedding-in-vic-on-24-and-25-january-2019.pdf,熱浪致電力短缺，強制工業與20萬戶減載
+VIC1,2019-01-25,EMERGENCY_CLOSURE,2019 Victoria Heatwave Load Shedding,STATEWIDE,OTHER_EMERGENCY,https://www.aemo.com.au/-/media/files/electricity/nem/market_notices_and_events/power_system_incident_reports/2019/load-shedding-in-vic-on-24-and-25-january-2019.pdf,熱浪致電力短缺，強制工業與20萬戶減載
+VIC1,2020-01-02,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-03,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-04,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-05,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-06,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-07,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-08,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-09,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-10,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2020-01-11,EMERGENCY_CLOSURE,2020 Victoria Black Summer State of Disaster,STATEWIDE,BUSHFIRE,https://www.vpsc.vic.gov.au/state-of-disaster-monitor-advice-and-warnings,黑色夏季山火，維州首度宣布災難狀態
+VIC1,2024-02-13,EMERGENCY_CLOSURE,2024 Victoria Storm & Tower Collapse Blackout,STATEWIDE,STORM_BLACKOUT,https://energyproducers.au/news/fact_sheets/victorian-electricity-outage-13-february-2024,強風暴致電塔倒塌電廠跳脫，53萬戶停電
+VIC1,2024-02-14,EMERGENCY_CLOSURE,2024 Victoria Storm & Tower Collapse Blackout,STATEWIDE,STORM_BLACKOUT,https://energyproducers.au/news/fact_sheets/victorian-electricity-outage-13-february-2024,強風暴致電塔倒塌電廠跳脫，53萬戶停電
+VIC1,2024-08-27,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-08-28,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-08-29,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-08-30,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-08-31,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-01,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-02,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-03,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-04,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-05,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2024-09-06,EMERGENCY_CLOSURE,2024 Victoria Severe Wind & Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://knowledge.aidr.org.au/resources/storm-severe-wind-and-rainfall-victoria-2024/,強風暴致逾18萬戶停電，學校停課交通中斷
+VIC1,2026-01-10,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-11,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-12,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-13,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-14,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-15,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-16,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-17,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-18,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-19,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-20,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-21,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-22,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-23,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-24,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-25,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-26,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-27,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-28,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-29,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-30,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-01-31,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-01,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-02,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-03,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-04,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-05,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-06,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-07,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+VIC1,2026-02-08,EMERGENCY_CLOSURE,2026 Victoria Bushfires State of Disaster,STATEWIDE,BUSHFIRE,https://www.premier.vic.gov.au/victorian-government-declares-state-disaster-0,全州山火宣布災難狀態，強制撤離與停電
+SA1,2009-01-29,EMERGENCY_CLOSURE,2009 SA Heatwave Load Shedding,STATEWIDE,STORM_BLACKOUT,https://www.aemc.gov.au/sites/default/files/content/0f19c224-5124-4114-b61a-a17f62b1dccb/Final-Report.pdf,極端熱浪致SA電網強制卸載停電
+SA1,2009-01-30,EMERGENCY_CLOSURE,2009 SA Heatwave Load Shedding,STATEWIDE,STORM_BLACKOUT,https://www.aemc.gov.au/sites/default/files/content/0f19c224-5124-4114-b61a-a17f62b1dccb/Final-Report.pdf,極端熱浪致SA電網強制卸載停電
+SA1,2015-01-02,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-01-03,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-01-04,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-01-05,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-01-06,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-01-07,EMERGENCY_CLOSURE,2015 Sampson Flat Bushfires,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2015_Sampson_Flat_bushfires,阿得雷德山野火發布重大緊急狀態
+SA1,2015-11-01,EMERGENCY_CLOSURE,2015 SA Interconnector Trip Blackout,STATEWIDE,STORM_BLACKOUT,https://energycouncil.com.au/south-australia-s-blackouts-not-as-simple-as-it-looks/,跨州輸電跳脫致11萬戶自動卸載
+SA1,2015-11-25,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-11-26,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-11-27,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-11-28,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-11-29,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-11-30,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-12-01,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2015-12-02,EMERGENCY_CLOSURE,2015 Pinery Bushfire & School Closures,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/media/4096/2015-2016-fire-danger-season-pinery-fire-review.pdf,大型野火致教育廳下令多校停課
+SA1,2016-09-28,EMERGENCY_CLOSURE,2016 SA Statewide Blackout & Floods,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴毀電塔致全州大停電與洪災
+SA1,2016-09-29,EMERGENCY_CLOSURE,2016 SA Statewide Blackout & Floods,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴毀電塔致全州大停電與洪災
+SA1,2016-09-30,EMERGENCY_CLOSURE,2016 SA Statewide Blackout & Floods,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴毀電塔致全州大停電與洪災
+SA1,2016-12-01,EMERGENCY_CLOSURE,2016 SA Grid Separation Blackout,STATEWIDE,STORM_BLACKOUT,https://energycouncil.com.au/south-australia-s-blackouts-not-as-simple-as-it-looks/,輸電故障孤島化致20萬戶停電限電
+SA1,2016-12-27,EMERGENCY_CLOSURE,2016 Late December SA Storm Blackouts,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴損毀電網致15.5萬戶大停電
+SA1,2016-12-28,EMERGENCY_CLOSURE,2016 Late December SA Storm Blackouts,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴損毀電網致15.5萬戶大停電
+SA1,2016-12-29,EMERGENCY_CLOSURE,2016 Late December SA Storm Blackouts,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴損毀電網致15.5萬戶大停電
+SA1,2016-12-30,EMERGENCY_CLOSURE,2016 Late December SA Storm Blackouts,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴損毀電網致15.5萬戶大停電
+SA1,2016-12-31,EMERGENCY_CLOSURE,2016 Late December SA Storm Blackouts,STATEWIDE,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,強風暴損毀電網致15.5萬戶大停電
+SA1,2017-01-19,EMERGENCY_CLOSURE,2017 January SA Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://energycouncil.com.au/south-australia-s-blackouts-not-as-simple-as-it-looks/,強風暴損毀配電網致5.8萬戶停電
+SA1,2017-01-20,EMERGENCY_CLOSURE,2017 January SA Storm Blackout,STATEWIDE,STORM_BLACKOUT,https://energycouncil.com.au/south-australia-s-blackouts-not-as-simple-as-it-looks/,強風暴損毀配電網致5.8萬戶停電
+SA1,2017-02-08,EMERGENCY_CLOSURE,2017 Adelaide Heatwave Load Shedding,METRO_CAPITAL,STORM_BLACKOUT,https://en.wikipedia.org/wiki/2016_South_Australian_blackout,高溫供電短缺致阿得雷德9萬戶限電
+SA1,2019-11-20,EMERGENCY_CLOSURE,2019 SA Catastrophic Fire Danger Closures,STATEWIDE,BUSHFIRE,https://en.mercopress.com/2019/11/20/australia-lifts-fire-danger-to-catastrophic-and-closes-schools-in-the-southeast,災難級火險致全州逾百所學校停課
+SA1,2019-12-20,EMERGENCY_CLOSURE,2019 Cudlee Creek Bushfire,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,阿得雷德山野火毀86屋逾萬戶停電
+SA1,2019-12-21,EMERGENCY_CLOSURE,2019 Cudlee Creek Bushfire,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,阿得雷德山野火毀86屋逾萬戶停電
+SA1,2019-12-22,EMERGENCY_CLOSURE,2019 Cudlee Creek Bushfire,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,阿得雷德山野火毀86屋逾萬戶停電
+SA1,2019-12-23,EMERGENCY_CLOSURE,2019 Cudlee Creek Bushfire,METRO_CAPITAL,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,阿得雷德山野火毀86屋逾萬戶停電
+SA1,2019-12-30,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2019-12-31,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-01,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-02,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-03,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-04,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-05,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-06,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-07,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-08,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-09,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-10,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-11,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-12,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-13,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-14,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-15,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-16,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-17,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-18,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-19,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-20,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2020-01-21,EMERGENCY_CLOSURE,2019-20 Kangaroo Island Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season,袋鼠島野火毀三分之一島嶼並疏散
+SA1,2026-11-19,EMERGENCY_CLOSURE,2026 SA Eyre Peninsula Supply Emergency,STATEWIDE,STORM_BLACKOUT,https://www.energymining.sa.gov.au/consumers/Eyre-Peninsula-and-West-Coast-electricity-supply-emergency,風暴毀電塔發布供電緊急狀態並停課
+SA1,2026-11-20,EMERGENCY_CLOSURE,2026 SA Eyre Peninsula Supply Emergency,STATEWIDE,STORM_BLACKOUT,https://www.energymining.sa.gov.au/consumers/Eyre-Peninsula-and-West-Coast-electricity-supply-emergency,風暴毀電塔發布供電緊急狀態並停課
+SA1,2026-11-21,EMERGENCY_CLOSURE,2026 SA Eyre Peninsula Supply Emergency,STATEWIDE,STORM_BLACKOUT,https://www.energymining.sa.gov.au/consumers/Eyre-Peninsula-and-West-Coast-electricity-supply-emergency,風暴毀電塔發布供電緊急狀態並停課
+SA1,2026-11-22,EMERGENCY_CLOSURE,2026 SA Eyre Peninsula Supply Emergency,STATEWIDE,STORM_BLACKOUT,https://www.energymining.sa.gov.au/consumers/Eyre-Peninsula-and-West-Coast-electricity-supply-emergency,風暴毀電塔發布供電緊急狀態並停課
+TAS1,2013-01-03,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-04,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-05,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-06,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-07,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-08,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-09,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-10,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-11,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-12,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2013-01-13,EMERGENCY_CLOSURE,2013 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://en.wikipedia.org/wiki/2013_Tasmanian_bushfires,東南大火斷電毀校，荷巴特濃煙疏散
+TAS1,2016-06-04,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2016-06-05,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2016-06-06,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2016-06-07,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2016-06-08,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2016-06-09,EMERGENCY_CLOSURE,2016 Tasmanian Floods,STATEWIDE,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-tasmania-june-july-2016/,全州二十區洪災疏散學校，數千戶停電
+TAS1,2018-05-10,EMERGENCY_CLOSURE,2018 Hobart Extreme Storm & Floods,METRO_CAPITAL,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-hobart-flash-flooding-tasmania-2018/,荷巴特暴雨洪災，逾卅校停課萬戶停電
+TAS1,2018-05-11,EMERGENCY_CLOSURE,2018 Hobart Extreme Storm & Floods,METRO_CAPITAL,CYCLONE_FLOOD,https://knowledge.aidr.org.au/resources/flood-hobart-flash-flooding-tasmania-2018/,荷巴特暴雨洪災，逾卅校停課萬戶停電
+TAS1,2018-12-28,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2018-12-29,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2018-12-30,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2018-12-31,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-01,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-02,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-03,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-04,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-05,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-06,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-07,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-08,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-09,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-10,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-11,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-12,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-13,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-14,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-15,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-16,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-17,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-18,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-19,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-20,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-21,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-22,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-23,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-24,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-25,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-26,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-27,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-28,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-29,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-30,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-01-31,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-01,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-02,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-03,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-04,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-05,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-06,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-07,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-08,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-09,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-10,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-11,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2019-02-12,EMERGENCY_CLOSURE,2018-19 Tasmanian Bushfires,STATEWIDE,BUSHFIRE,https://knowledge.aidr.org.au/resources/2018-19-bushfire-tas-tasmanian-bushfires/,全州山火燒毀廿萬公頃，荷巴特濃煙撤離
+TAS1,2024-08-26,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-08-27,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-08-28,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-08-29,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-08-30,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-08-31,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-09-01,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-09-02,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-09-03,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2024-09-04,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
+TAS1,2025-10-10,EMERGENCY_CLOSURE,2025 Tasmania Severe Wind Blackout,STATEWIDE,STORM_BLACKOUT,https://www.theguardian.com/australia-news/2025/oct/10/severe-weather-tasmania-wind-fallen-trees-powerlines,強風致兩萬戶停電，醫院分流航班取消
+TAS1,2025-10-11,EMERGENCY_CLOSURE,2025 Tasmania Severe Wind Blackout,STATEWIDE,STORM_BLACKOUT,https://www.theguardian.com/australia-news/2025/oct/10/severe-weather-tasmania-wind-fallen-trees-powerlines,強風致兩萬戶停電，醫院分流航班取消

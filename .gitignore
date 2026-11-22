@@ -1,6 +1,13 @@
 __pycache__/
 *.pyc
 *.db
-*.parquet
 .env
 archive/
+
+# 排除龐大的原始未加工資料（改由本機與 Google 雲端備份保存）
+data/raw/
+
+# 預設排除所有大型 CSV，但放行外部假日表與指定的單年抽樣 CSV
+*.csv
+!data/external/*.csv
+!data/processed/*_sample_*.csv
