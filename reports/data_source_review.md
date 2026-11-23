@@ -86,3 +86,27 @@
    - 原先規劃於前處理階段剔除疫情期間，經檢討後改採「全歷史完整收錄、下游以旗標彈性控制」策略：於標準化逐小時長表中新增獨立布林旗標 `is_covid_period`（依 WHO 國際關注公共衛生緊急事件期間 `2020-01-30` 至 `2023-05-05` 標註為 `1`），讓後續模型訓練與消融實驗可自由選擇排除、降權或保留疫情樣本，確保資料集可重現性。
 3. **民用時區、外部事件五分類與極端物理值保留**：
    - 標準化輸出由寬表改為複合主鍵 `(region_id, timestamp_utc)` 之全歷史長表（`1,168,495` 筆），納入各州民用 IANA 時區與夏令時間（`is_dst`）、國定假日（`au_public_holidays.csv`）與災害緊急停班（`au_emergency_closures.csv`，刻意排除疫情封控）並建立嚴格互斥五分類 `day_type`；同時停用硬性 MW 上下限與 `1.5×IQR` 過濾，完整保留南澳（`SA1`）屋頂光電倒灌所產生之負淨負載（最低達逐時 `-280.12 MW`／5 分鐘 `-311.10 MW`）。
+
+---
+
+## 6. 官方網站、授權條款與 Metadata 參考連結
+
+| 資料來源 | 官方入口 / API 與 Metadata 參考 | 授權條款與取得條件 |
+| :--- | :--- | :--- |
+| **澳洲 AEMO NEM**（主力資料集） | - [AEMO NEM Aggregated Price & Demand Data](https://aemo.com.au/energy-systems/electricity/national-electricity-market-nem/data-nem/aggregated-data)<br>- [AEMO Operational Demand Definition & Market Data](https://aemo.com.au/energy-systems/electricity/national-electricity-market-nem/data-nem/market-data-nemweb)<br>- 直連月檔 URL 樣板：`https://www.aemo.com.au/aemo/data/nem/priceanddemand/PRICE_AND_DEMAND_{YYYYMM}_{REGION}.csv` | [AEMO Copyright & Permissions](https://aemo.com.au/site-pages/copyright-permissions)（公開資料可作研究與分析使用，免 API Key） |
+| **澳洲靜態國定假日**（外部日曆） | - [python-holidays (GitHub / Documentation)](https://github.com/vacanza/python-holidays)（套件 `holidays==0.109`，對應 `AU-NSW`/`QLD`/`SA`/`TAS`/`VIC`） | MIT License（開源可重現產生） |
+| **丹麥 Energinet**（已封存對照組） | - [Energi Data Service Open Data Portal](https://www.energidataservice.dk/)<br>- 資料集：`ConsumptionConsumerCategoryHour` | Energinet Open Data License（免 API Key） |
+| **美國聯邦 EIA**（已封存擴充選項） | - [EIA Hourly Electric Grid Monitor (Form EIA-930)](https://www.eia.gov/electricity/gridmonitor/)<br>- [EIA Open Data API v2 Documentation](https://www.eia.gov/opendata/documentation.php) | 美國聯邦政府公有領域（Public Domain，需免費申請 API Key） |
+
+---
+
+## 7. 待與指導老師確認之候選口徑問題清單
+
+1. **淨調度負載口徑（`TOTALDEMAND`）vs 總終端負載還原**：
+   - 現行目標變數 `load_mw` 為不含表後屋頂太陽能自發自用之電網淨調度負載（`SA1` 近年正午已出現負值 `-280.12 MW`）；需確認論文／專題預測目標維持電網淨負載口徑，或另行接軌 AEMO 表後屋頂光電估計資料以拆解總用電量。
+2. **災害緊急停班影響視窗（Impact Window）界定**：
+   - `au_emergency_closures.csv` 涵蓋 44 起重大災害之事件影響期間（322 州-日），需確認於正式模型中將其視為「災害擾動風險旗標」納入訓練、抑或於評估階段單獨分層計算災害日 vs 常態日誤差。
+3. **候選時序切分與 COVID-19 期間處理口徑**：
+   - 詳見 [coverage_report.md](./coverage_report.md) 之三套候選切分參考方案（全歷史標準切分、排除 `2020-01-30 ~ 2023-05-05` 疫情期切分、或聚焦 `2016+` 高光電滲透期切分），需與指導老師拍板正式 Development / Calibration / Confirmation 邊界。
+4. **候選氣象外生特徵接通方案**：
+   - 尚未接通之溫度／輻照度氣象資料（見 [timestamp_availability.md](./timestamp_availability.md)）需確認採用再分析資料（如 ERA5）或澳洲氣象局（BoM）測站／預報資料，以對齊研究目標與預測時點可得性。

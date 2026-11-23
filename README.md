@@ -63,8 +63,12 @@ Load_Pulse/
 ├── reports/
 │   ├── au_data_quality_report.md       # 1998–2026 全歷史資料品質檢核報告
 │   ├── au_emergency_closures_report.md # 澳洲 44 起重大緊急停班災害事件完整目錄與統計
+│   ├── coverage_report.md              # 五州資料覆蓋跨度與 3 套候選時序切分參考方案
+│   ├── data_dictionary.md              # 主訓練長表 (14 欄) 與稽核長表 (28 欄) 獨立資料字典
+│   ├── data_quality_spec.md            # 管線 10 大功能拆解、品質規格與三層 SHA-256 說明
+│   ├── data_source_review.md           # 跨國電網選材物理評估、官方授權與待確認口徑清單
 │   ├── pipeline_v2_release_notes.md    # 管線 Ver 2.0 vs Ver 1.0 架構演進與差異說明
-│   └── data_source_review.md           # 跨國電網選材物理評估與 Phase 2 收斂說明
+│   └── timestamp_availability.md       # 時間戳發布可得性、氣象待接通缺口與 6 大時間轉折點
 ├── src/
 │   ├── data_collection/            # AEMO 原始檔下載、國定假日產生與緊急停班驗證腳本
 │   └── visualization/              # 全歷史檢核圖表與 Cartopy 調度區地圖繪製腳本
