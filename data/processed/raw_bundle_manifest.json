@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-23T06:48:58.958551+00:00",
-  "master_sources_sha256": "d22376b748d4de2992f861b1bfeb308dafc964f2f26ad8ae93c7c28ae7c19ce1",
+  "generated_at_utc": "2026-11-23T14:49:39.193626+00:00",
+  "master_sources_sha256": "937f330e39c2e2eab5847b3726f8f0c89cc8d89dff052c8358393aae246087a8",
   "hash_spec": "SHA-256 of UTF-8 encoded lines formatted as '{relative_path}:{sha256}\\n', with all source files normalized to POSIX relative paths from project root and sorted in ascending lexicographical order by relative_path.",
   "source_counts": {
     "raw_aemo": 1603,
@@ -34,8 +34,8 @@
       "source_type": "external",
       "region_id": "ALL",
       "rows": 322,
-      "bytes": 71838,
-      "sha256": "c1a9ffd22bb7a8bb0a70a7d1168e2b91f8d4988bf9a50390b9fb26057ef87336"
+      "bytes": 71844,
+      "sha256": "ece7d3be3fc98f3db8f0fdea5c39e5415cbb234e892cc373ce208be0841c3bca"
     },
     {
       "relative_path": "data/external/au_public_holidays.csv",

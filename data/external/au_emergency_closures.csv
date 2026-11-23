@@ -218,8 +218,8 @@ TAS1,2024-09-03,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWI
 TAS1,2024-09-04,EMERGENCY_CLOSURE,2024 Tasmania Severe Storms & Blackout,STATEWIDE,STORM_BLACKOUT,https://alert.tas.gov.au/recovery/incidents/severe-weather-september-2024,強風洪災逾四萬戶停電，多校停課
 TAS1,2025-10-10,EMERGENCY_CLOSURE,2025 Tasmania Severe Wind Blackout,STATEWIDE,STORM_BLACKOUT,https://www.theguardian.com/australia-news/2025/oct/10/severe-weather-tasmania-wind-fallen-trees-powerlines,強風致兩萬戶停電，醫院分流航班取消
 TAS1,2025-10-11,EMERGENCY_CLOSURE,2025 Tasmania Severe Wind Blackout,STATEWIDE,STORM_BLACKOUT,https://www.theguardian.com/australia-news/2025/oct/10/severe-weather-tasmania-wind-fallen-trees-powerlines,強風致兩萬戶停電，醫院分流航班取消
-VIC1,2007-01-16,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
-VIC1,2007-01-17,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
+VIC1,2007-01-16,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com.au/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
+VIC1,2007-01-17,EMERGENCY_CLOSURE,2007 Victoria Bushfire Blackout,STATEWIDE,STORM_BLACKOUT,https://wattclarity.com.au/articles/2007/01/16th-january-2007-bushfires-and-victorias-blackout/,山火致輸電跳脫，全州減載逾20萬戶停電
 VIC1,2009-01-27,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
 VIC1,2009-01-28,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
 VIC1,2009-01-29,EMERGENCY_CLOSURE,2009 Southeastern Australia Heatwave Blackout,STATEWIDE,OTHER_EMERGENCY,https://en.wikipedia.org/wiki/2009_southeastern_Australia_heat_wave,極端熱浪致電網過載，墨爾本50萬戶停電
