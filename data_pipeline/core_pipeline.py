@@ -1,16 +1,18 @@
-"""LoadPulse 澳洲全歷史電力負載標準化清洗核心模組 (v2.0.0)。
+"""LoadPulse 澳洲全歷史電力負載標準化清洗核心模組 (v2.1.0)。
 
 設計原則：
 - 全面向量化（零列級 Python `.apply()`），完全相容 `pandas 3.0.2` Copy-on-Write 與 `pyarrow`。
-- 啟動前強制以 `raw_bundle_manifest.json` 驗證輸入 Parquet 與外部靜態 CSV 之 SHA-256 完整性。
-- 忠實保留所有物理觀測值（停用硬性 MW 上下限與 `1.5×IQR` 極端值過濾），僅標記結構性缺值與樣本數完整性。
-- 以 `(region_id, timestamp_utc)` 為唯一複合主鍵產出長表，並整合各州民用時區、DST、國定假日、緊急停班、疫情旗標與三層 SHA-256 溯源資訊。
+- 啟動前強制以 `raw_bundle_manifest.json` 驗證輸入 Parquet 與外部國定假日靜態 CSV 之 SHA-256 完整性。
+- 裁切對齊完整 UTC 起始年份：`NSW1`/`QLD1`/`SA1`/`VIC1` 自 `1999-01-01 00:00:00Z` 起算，`TAS1` 自 `2006-01-01 00:00:00Z` 起算，`2026` 保留至最新可用時點。
+- `day_type` 精簡為純三分類且國定假日優先（`PUBLIC_HOLIDAY` > `WEEKEND` > `WEEKDAY`），移除緊急停班覆寫與 `BOTH` 類別。
+- 同步輸出雙 ZSTD Parquet 長表與按 UTC 年份分表（`nem_1999` ~ `nem_2026`）之 SQLite 資料庫。
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -19,7 +21,7 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-PIPELINE_VERSION = "2.0.0"
+PIPELINE_VERSION = "2.1.0"
 
 MARKET_TZ = "Australia/Brisbane"  # AEMO NEM 市場全年固定 AEST (UTC+10，無 DST)
 FIVE_MIN_SWITCH_AEST_NAIVE = pd.Timestamp("2021-10-01 00:00:00")
@@ -44,6 +46,14 @@ REGION_STD_OFFSET_SEC: dict[str, int] = {
     "VIC1": 10 * 3600,
 }
 
+REGION_START_UTC_MAP: dict[str, pd.Timestamp] = {
+    "NSW1": pd.Timestamp("1999-01-01 00:00:00+00:00"),
+    "QLD1": pd.Timestamp("1999-01-01 00:00:00+00:00"),
+    "SA1": pd.Timestamp("1999-01-01 00:00:00+00:00"),
+    "TAS1": pd.Timestamp("2006-01-01 00:00:00+00:00"),
+    "VIC1": pd.Timestamp("1999-01-01 00:00:00+00:00"),
+}
+
 MAIN_COLUMNS: list[str] = [
     "region_id",
     "timestamp_utc",
@@ -55,7 +65,6 @@ MAIN_COLUMNS: list[str] = [
     "load_mw",
     "day_type",
     "is_public_holiday",
-    "is_emergency_closure",
     "is_covid_period",
     "is_missing",
     "quality_flag",
@@ -71,8 +80,6 @@ QC_EXTRA_COLUMNS: list[str] = [
     "is_duplicate",
     "is_dst_transition",
     "holiday_name",
-    "emergency_event_category",
-    "emergency_scope",
     "source_file",
     "source_file_sha256",
     "version",
@@ -100,7 +107,6 @@ def verify_and_load_raw_parquet(
     bundle_manifest_path: Path,
     raw_parquet_path: Path,
     holidays_csv_path: Path,
-    emergency_csv_path: Path,
 ) -> tuple[pd.DataFrame, dict]:
     """依 raw_bundle_manifest.json 驗證輸入檔 SHA-256，通過後唯讀載入原始整合 Parquet。"""
     if not bundle_manifest_path.exists():
@@ -124,25 +130,19 @@ def verify_and_load_raw_parquet(
             f"expected={expected_raw_pq_sha}, actual={actual_raw_pq_sha}"
         )
 
-    # 2) 驗證兩份外部靜態 CSV
-    ext_hashes: dict[str, str] = {}
-    for key_name, ext_path in [
-        ("external_holidays_sha256", holidays_csv_path),
-        ("external_emergency_sha256", emergency_csv_path),
-    ]:
-        if not ext_path.exists():
-            raise FileNotFoundError(f"找不到外部事件表：{ext_path}")
-        rel = _rel_posix(ext_path)
-        if rel not in sources_by_rel:
-            raise KeyError(f"raw_bundle_manifest.json 缺少外部檔案紀錄：{rel}")
-        expected_sha = str(sources_by_rel[rel]["sha256"]).lower()
-        actual_sha = compute_sha256(ext_path).lower()
-        if actual_sha != expected_sha:
-            raise RuntimeError(
-                f"SHA-256 驗證失敗 ({ext_path.name}): "
-                f"expected={expected_sha}, actual={actual_sha}"
-            )
-        ext_hashes[key_name] = actual_sha
+    # 2) 驗證外部靜態國定假日 CSV
+    if not holidays_csv_path.exists():
+        raise FileNotFoundError(f"找不到外部國定假日表：{holidays_csv_path}")
+    hol_rel = _rel_posix(holidays_csv_path)
+    if hol_rel not in sources_by_rel:
+        raise KeyError(f"raw_bundle_manifest.json 缺少外部檔案紀錄：{hol_rel}")
+    expected_hol_sha = str(sources_by_rel[hol_rel]["sha256"]).lower()
+    actual_hol_sha = compute_sha256(holidays_csv_path).lower()
+    if actual_hol_sha != expected_hol_sha:
+        raise RuntimeError(
+            f"SHA-256 驗證失敗 ({holidays_csv_path.name}): "
+            f"expected={expected_hol_sha}, actual={actual_hol_sha}"
+        )
 
     # 3) 建立 source_file -> 64 碼 SHA-256 映射表
     source_file_sha256_map = {
@@ -151,7 +151,7 @@ def verify_and_load_raw_parquet(
         if item.get("source_type") == "raw_aemo"
     }
 
-    # 4) 僅載入必要欄位（直接捨棄 RRP 與 PERIODTYPE）
+    # 4) 僅載入必要欄位（捨棄 RRP 與 PERIODTYPE）
     df_raw = pd.read_parquet(
         raw_parquet_path,
         columns=["REGION", "SETTLEMENTDATE", "TOTALDEMAND", "source_file"],
@@ -170,23 +170,22 @@ def verify_and_load_raw_parquet(
         "version_tag": version_tag,
         "master_sources_sha256": master_sources_sha256,
         "input_raw_parquet_sha256": actual_raw_pq_sha,
-        "external_holidays_sha256": ext_hashes["external_holidays_sha256"],
-        "external_emergency_sha256": ext_hashes["external_emergency_sha256"],
+        "external_holidays_sha256": actual_hol_sha,
         "source_file_sha256_map": source_file_sha256_map,
         "raw_row_count": int(len(df_raw)),
     }
     print(
-        f"[1/6] SHA-256 啟動驗真通過 (raw Parquet + 2 external CSVs)，"
+        f"[1/7] SHA-256 啟動驗真通過 (raw Parquet + au_public_holidays.csv)，"
         f"載入 {len(df_raw):,} 筆原始紀錄 | version={version_tag}"
     )
     return df_raw, lineage
 
 
 # ==========================================
-# 2. 時間解析與分段區間平移 (AEST -> UTC)
+# 2. 時間解析、分段平移與完整 UTC 年份起點裁切
 # ==========================================
 def parse_and_shift_timestamps(df_raw: pd.DataFrame) -> pd.DataFrame:
-    """解析混合格式 SETTLEMENTDATE，依 2021-10-01 切換點平移為區間起點並轉為 UTC。"""
+    """解析混合格式 SETTLEMENTDATE，平移為 UTC 區間起點並依各州完整 UTC 起始年份裁切。"""
     dt_end = pd.to_datetime(df_raw["SETTLEMENTDATE"], format="mixed")
     nat_count = int(dt_end.isna().sum())
     if nat_count > 0:
@@ -214,9 +213,15 @@ def parse_and_shift_timestamps(df_raw: pd.DataFrame) -> pd.DataFrame:
     if dup_cnt > 0:
         raise ValueError(f"原始粒度 (region_id, timestamp_utc) 存在 {dup_cnt} 筆重複列")
 
+    # 依各州完整 UTC 年份邊界裁切（NSW1/QLD1/SA1/VIC1 >= 1999-01-01Z, TAS1 >= 2006-01-01Z）
+    min_utc_series = df_out["region_id"].map(REGION_START_UTC_MAP)
+    keep_mask = df_out["timestamp_utc"] >= min_utc_series
+    cropped_cnt = int((~keep_mask).sum())
+    df_out = df_out.loc[keep_mask].reset_index(drop=True)
+
     print(
-        f"[2/6] 時間解析與分段平移完成：0 筆 NaT，0 筆原始主鍵重複 "
-        f"(30min={(raw_interval_min == 30).sum():,}, 5min={(raw_interval_min == 5).sum():,})"
+        f"[2/7] 時間解析、分段平移與完整年份裁切完成：移除早期非完整年 {cropped_cnt:,} 筆，"
+        f"保留 {len(df_out):,} 筆原始區間"
     )
     return df_out
 
@@ -225,7 +230,7 @@ def parse_and_shift_timestamps(df_raw: pd.DataFrame) -> pd.DataFrame:
 # 3. 逐時聚合與分區連續 1h UTC 建格
 # ==========================================
 def aggregate_hourly_and_build_grid(df_intervals: pd.DataFrame) -> pd.DataFrame:
-    """以 UTC 小時槽聚合為逐小時平均負載，並按各區實際營運起訖補齊連續 1h 網格。"""
+    """以 UTC 小時槽聚合為逐小時平均負載，並自各州指定完整 UTC 年份起點補齊連續 1h 網格。"""
     df_work = df_intervals.assign(
         hour_utc=df_intervals["timestamp_utc"].dt.floor("h")
     )
@@ -247,7 +252,7 @@ def aggregate_hourly_and_build_grid(df_intervals: pd.DataFrame) -> pd.DataFrame:
         sub = hourly.loc[hourly["region_id"] == region_id]
         if sub.empty:
             continue
-        start_ts = sub["timestamp_utc"].min()
+        start_ts = REGION_START_UTC_MAP[region_id].as_unit("s")
         end_ts = sub["timestamp_utc"].max()
         full_hours = pd.date_range(
             start=start_ts,
@@ -274,7 +279,6 @@ def aggregate_hourly_and_build_grid(df_intervals: pd.DataFrame) -> pd.DataFrame:
     df_grid = pd.concat(grid_frames, ignore_index=True)
     df_grid = df_grid.sort_values(["region_id", "timestamp_utc"]).reset_index(drop=True)
 
-    # 缺值小時保留 load_mw = NaN、source_file = <NA>，數值型計數與間隔轉為 int8
     df_grid["sample_count"] = df_grid["sample_count"].fillna(0).astype(np.int8)
     expected_interval = np.where(df_grid["timestamp_utc"] < FIVE_MIN_SWITCH_UTC, 30, 5).astype(np.int8)
     df_grid["raw_interval_min"] = (
@@ -284,7 +288,7 @@ def aggregate_hourly_and_build_grid(df_intervals: pd.DataFrame) -> pd.DataFrame:
     assert not df_grid.duplicated(subset=["region_id", "timestamp_utc"]).any(), (
         "主鍵驗證失敗：(region_id, timestamp_utc) 存在重複列"
     )
-    print(f"[3/6] 逐時聚合與分區連續 1h 網格建立完成：共 {len(df_grid):,} 列")
+    print(f"[3/7] 逐時聚合與分區連續 1h 網格建立完成：共 {len(df_grid):,} 列")
     return df_grid
 
 
@@ -313,21 +317,20 @@ def attach_structural_quality_flags(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     print(
-        f"[4/6] 結構性完整性旗標完成：MISSING={int(is_missing.sum())}, "
+        f"[4/7] 結構性完整性旗標完成：MISSING={int(is_missing.sum())}, "
         f"PARTIAL_HOUR={int(is_partial_hour.sum())}, DUPLICATE=0"
     )
     return df_out
 
 
 # ==========================================
-# 5. 各州民用時區、DST、外部假日／緊急停班與疫情旗標
+# 5. 各州民用時區、DST、純三分類 day_type 與疫情旗標
 # ==========================================
-def attach_civil_calendar_and_events(
+def attach_civil_calendar_and_holidays(
     df: pd.DataFrame,
     holidays_csv_path: Path,
-    emergency_csv_path: Path,
 ) -> pd.DataFrame:
-    """依各州民用 IANA 時區向量化產生日曆與 DST 欄位，並左連接假日、緊急停班與疫情旗標。"""
+    """依各州民用 IANA 時區向量化產生日曆與 DST，並以國定假日優先建立純三分類 day_type。"""
     region_parts: list[pd.DataFrame] = []
 
     for region_id, iana_tz in REGION_TZ_MAP.items():
@@ -338,7 +341,6 @@ def attach_civil_calendar_and_events(
         ts_utc = sub["timestamp_utc"]
         ts_local = ts_utc.dt.tz_convert(iana_tz)
 
-        # 向量化計算當地與 UTC 偏移秒數（相容夏令切換雙重小時與半小時時區）
         offset_sec = (
             (ts_local.dt.tz_localize(None) - ts_utc.dt.tz_localize(None))
             .dt.total_seconds()
@@ -349,7 +351,6 @@ def attach_civil_calendar_and_events(
         prev_offset = offset_sec.shift(1)
         is_dst_transition = ((offset_sec != prev_offset) & prev_offset.notna()).astype(np.int8)
 
-        # 向量化產生 ISO-8601 含冒號時區偏移字串
         ts_local_iso = (
             ts_local.dt.strftime("%Y-%m-%dT%H:%M:%S%z")
             .str.replace(r"([+-]\d{2})(\d{2})$", r"\1:\2", regex=True)
@@ -372,7 +373,6 @@ def attach_civil_calendar_and_events(
     df_cal = pd.concat(region_parts, ignore_index=True)
     df_cal = df_cal.sort_values(["region_id", "timestamp_utc"]).reset_index(drop=True)
 
-    # 讀取並檢核外部假日表與緊急停班表主鍵唯一性
     df_hol = pd.read_csv(
         holidays_csv_path,
         usecols=["region_id", "local_date", "holiday_name"],
@@ -382,20 +382,6 @@ def attach_civil_calendar_and_events(
         "au_public_holidays.csv 主鍵 (region_id, local_date) 存在重複"
     )
 
-    df_em = pd.read_csv(
-        emergency_csv_path,
-        usecols=["region_id", "local_date", "event_category", "scope"],
-        dtype="string",
-    ).rename(
-        columns={
-            "event_category": "emergency_event_category",
-            "scope": "emergency_scope",
-        }
-    )
-    assert not df_em.duplicated(subset=["region_id", "local_date"]).any(), (
-        "au_emergency_closures.csv 主鍵 (region_id, local_date) 存在重複"
-    )
-
     df_merged = pd.merge(
         df_cal,
         df_hol,
@@ -403,29 +389,17 @@ def attach_civil_calendar_and_events(
         how="left",
         validate="many_to_one",
     )
-    df_merged = pd.merge(
-        df_merged,
-        df_em,
-        on=["region_id", "local_date"],
-        how="left",
-        validate="many_to_one",
-    )
 
     is_public_holiday = df_merged["holiday_name"].notna().astype(np.int8)
-    is_emergency_closure = df_merged["emergency_event_category"].notna().astype(np.int8)
-
-    # 嚴格互斥五分類 day_type（保留獨立 is_weekend / is_public_holiday / is_emergency_closure 欄位不變）
     is_weekend = df_merged["is_weekend"]
+
+    # 純三分類 day_type：PUBLIC_HOLIDAY > WEEKEND > WEEKDAY（移除緊急停班與 BOTH）
     day_type = np.select(
         [
-            (is_emergency_closure == 1) & (is_public_holiday == 1),
-            (is_emergency_closure == 1) & (is_public_holiday == 0),
-            (is_emergency_closure == 0) & (is_public_holiday == 1),
-            (is_emergency_closure == 0) & (is_public_holiday == 0) & (is_weekend == 1),
+            is_public_holiday == 1,
+            is_weekend == 1,
         ],
         [
-            "BOTH",
-            "EMERGENCY_CLOSURE",
             "PUBLIC_HOLIDAY",
             "WEEKEND",
         ],
@@ -440,14 +414,12 @@ def attach_civil_calendar_and_events(
     df_out = df_merged.assign(
         day_type=pd.Series(day_type, index=df_merged.index, dtype="string"),
         is_public_holiday=is_public_holiday,
-        is_emergency_closure=is_emergency_closure,
         is_covid_period=is_covid_period,
     )
 
     print(
-        f"[5/6] 民用時區與外部事件整合完成：is_dst={int(df_out['is_dst'].sum()):,}, "
+        f"[5/7] 民用時區與純三分類日型整合完成：is_dst={int(df_out['is_dst'].sum()):,}, "
         f"is_public_holiday={int(is_public_holiday.sum()):,}, "
-        f"is_emergency_closure={int(is_emergency_closure.sum()):,}, "
         f"is_covid_period={int(is_covid_period.sum()):,}"
     )
     return df_out
@@ -461,12 +433,11 @@ def attach_lineage_and_export_parquets(
     lineage: dict,
     main_output_path: Path,
     full_qc_output_path: Path,
-) -> dict:
+) -> tuple[pd.DataFrame, dict]:
     """附上逐列 source_file_sha256 與 version，並寫出含完整 64 碼 Metadata 的雙 Parquet 檔。"""
     source_sha_map: dict[str, str] = lineage["source_file_sha256_map"]
     source_file_sha256 = df["source_file"].map(source_sha_map).astype("string")
 
-    # 驗證非缺失列皆成功映射至 64 碼 SHA-256
     unmapped = int((df["source_file"].notna() & source_file_sha256.isna()).sum())
     if unmapped > 0:
         raise RuntimeError(f"有 {unmapped} 筆非缺失列無法映射至 source_file_sha256")
@@ -476,10 +447,12 @@ def attach_lineage_and_export_parquets(
         version=pd.Series(lineage["version_tag"], index=df.index, dtype="string"),
     )
 
-    # 最終排序與複合主鍵唯一性斷言
     df_full = df_full.sort_values(["region_id", "timestamp_utc"]).reset_index(drop=True)
     assert not df_full.duplicated(subset=["region_id", "timestamp_utc"]).any(), (
         "最終主鍵驗證失敗：(region_id, timestamp_utc) 存在重複列"
+    )
+    assert set(df_full["day_type"].unique().tolist()) == {"WEEKDAY", "WEEKEND", "PUBLIC_HOLIDAY"}, (
+        f"day_type 集合不符三分類規範：{df_full['day_type'].unique().tolist()}"
     )
 
     generated_at_utc = datetime.now(timezone.utc).isoformat()
@@ -488,7 +461,6 @@ def attach_lineage_and_export_parquets(
         b"master_sources_sha256": str(lineage["master_sources_sha256"]).encode("utf-8"),
         b"input_raw_parquet_sha256": str(lineage["input_raw_parquet_sha256"]).encode("utf-8"),
         b"external_holidays_sha256": str(lineage["external_holidays_sha256"]).encode("utf-8"),
-        b"external_emergency_sha256": str(lineage["external_emergency_sha256"]).encode("utf-8"),
         b"generated_at_utc": generated_at_utc.encode("utf-8"),
     }
 
@@ -506,7 +478,6 @@ def attach_lineage_and_export_parquets(
             pa.field("load_mw", pa.float64()),
             pa.field("day_type", dict_str_type),
             pa.field("is_public_holiday", pa.int8()),
-            pa.field("is_emergency_closure", pa.int8()),
             pa.field("is_covid_period", pa.int8()),
             pa.field("is_missing", pa.int8()),
             pa.field("quality_flag", dict_str_type),
@@ -525,8 +496,6 @@ def attach_lineage_and_export_parquets(
             pa.field("is_duplicate", pa.int8()),
             pa.field("is_dst_transition", pa.int8()),
             pa.field("holiday_name", dict_str_type),
-            pa.field("emergency_event_category", dict_str_type),
-            pa.field("emergency_scope", dict_str_type),
             pa.field("source_file", dict_str_type),
             pa.field("source_file_sha256", dict_str_type),
             pa.field("version", dict_str_type),
@@ -546,15 +515,106 @@ def attach_lineage_and_export_parquets(
     main_mb = main_output_path.stat().st_size / (1024 * 1024)
     qc_mb = full_qc_output_path.stat().st_size / (1024 * 1024)
     print(
-        f"[6/6] 雙 Parquet 寫入完成：\n"
+        f"[6/7] 雙 Parquet 寫入完成：\n"
         f"   -> 主訓練長表：{main_output_path.name} ({len(df_full):,} 列, {len(MAIN_COLUMNS)} 欄, {main_mb:.2f} MB)\n"
         f"   -> 完整稽核表：{full_qc_output_path.name} ({len(df_full):,} 列, {len(FULL_QC_COLUMNS)} 欄, {qc_mb:.2f} MB)"
     )
 
-    return {
+    return df_full, {
         "rows": int(len(df_full)),
         "main_size_mb": round(main_mb, 4),
         "full_qc_size_mb": round(qc_mb, 4),
         "version_tag": lineage["version_tag"],
         "generated_at_utc": generated_at_utc,
+    }
+
+
+# ==========================================
+# 7. 按 UTC 年份分表匯出 SQLite 資料庫
+# ==========================================
+def export_annual_sqlite_db(
+    df_full: pd.DataFrame,
+    sqlite_output_path: Path,
+) -> dict:
+    """依 UTC 年份建立獨立資料表 nem_1999..nem_2026，設定複合主鍵與 (region_id, local_date) 索引。"""
+    sqlite_output_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_db_path = sqlite_output_path.with_suffix(".db.tmp")
+    if tmp_db_path.exists():
+        tmp_db_path.unlink()
+
+    df_sql = df_full[FULL_QC_COLUMNS].copy()
+    utc_years = df_full["timestamp_utc"].dt.year
+    df_sql["timestamp_utc"] = df_full["timestamp_utc"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    ddl_cols = """
+        region_id TEXT NOT NULL,
+        timestamp_utc TEXT NOT NULL,
+        local_date TEXT NOT NULL,
+        local_hour INTEGER NOT NULL,
+        day_of_week INTEGER NOT NULL,
+        is_weekend INTEGER NOT NULL,
+        is_dst INTEGER NOT NULL,
+        load_mw REAL,
+        day_type TEXT NOT NULL,
+        is_public_holiday INTEGER NOT NULL,
+        is_covid_period INTEGER NOT NULL,
+        is_missing INTEGER NOT NULL,
+        quality_flag TEXT NOT NULL,
+        iana_tz TEXT NOT NULL,
+        timestamp_local TEXT NOT NULL,
+        raw_interval_min INTEGER NOT NULL,
+        sample_count INTEGER NOT NULL,
+        expected_samples INTEGER NOT NULL,
+        is_partial_hour INTEGER NOT NULL,
+        is_duplicate INTEGER NOT NULL,
+        is_dst_transition INTEGER NOT NULL,
+        holiday_name TEXT,
+        source_file TEXT,
+        source_file_sha256 TEXT,
+        version TEXT NOT NULL,
+        PRIMARY KEY (region_id, timestamp_utc)
+    """
+    placeholders = ", ".join(["?"] * len(FULL_QC_COLUMNS))
+
+    table_counts: dict[str, int] = {}
+    conn = sqlite3.connect(str(tmp_db_path))
+    try:
+        conn.execute("PRAGMA journal_mode = OFF;")
+        conn.execute("PRAGMA synchronous = OFF;")
+
+        for year in sorted(utc_years.unique().tolist()):
+            tbl_name = f"nem_{int(year)}"
+            sub = df_sql.loc[utc_years == year]
+
+            # 將 pandas <NA> / NaN 轉為 Python None 以寫入 SQLite NULL
+            obj_df = sub.astype(object).where(sub.notna(), None)
+            rows_tuples = list(obj_df.itertuples(index=False, name=None))
+
+            with conn:
+                conn.execute(f"CREATE TABLE {tbl_name} ({ddl_cols});")
+                conn.executemany(
+                    f"INSERT INTO {tbl_name} VALUES ({placeholders});",
+                    rows_tuples,
+                )
+                conn.execute(
+                    f"CREATE INDEX idx_{tbl_name}_region_local_date "
+                    f"ON {tbl_name} (region_id, local_date);"
+                )
+            table_counts[tbl_name] = len(rows_tuples)
+    finally:
+        conn.close()
+
+    if sqlite_output_path.exists():
+        sqlite_output_path.unlink()
+    tmp_db_path.replace(sqlite_output_path)
+
+    db_mb = sqlite_output_path.stat().st_size / (1024 * 1024)
+    print(
+        f"[7/7] 按年分表 SQLite 建置完成：{sqlite_output_path.name} "
+        f"(共 {len(table_counts)} 張年表: {min(table_counts)}..{max(table_counts)}, {db_mb:.2f} MB)"
+    )
+    return {
+        "sqlite_table_count": len(table_counts),
+        "sqlite_size_mb": round(db_mb, 4),
+        "table_counts": table_counts,
     }

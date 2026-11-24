@@ -28,8 +28,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 FIGURES_DIR = PROJECT_ROOT / "outputs" / "figures"
 
-MAIN_PARQUET = PROCESSED_DIR / "AU_AEMO_NEM_hourly_1998_2026.parquet"
-FULL_QC_PARQUET = PROCESSED_DIR / "AU_AEMO_NEM_hourly_1998_2026_full_qc.parquet"
+MAIN_PARQUET = PROCESSED_DIR / "AU_AEMO_NEM_hourly_1999_2026.parquet"
+FULL_QC_PARQUET = PROCESSED_DIR / "AU_AEMO_NEM_hourly_1999_2026_full_qc.parquet"
 
 REGIONS = ["NSW1", "QLD1", "VIC1", "SA1", "TAS1"]
 REGION_COLORS = {
@@ -52,7 +52,6 @@ REQUIRED_META_KEYS = [
     "master_sources_sha256",
     "input_raw_parquet_sha256",
     "external_holidays_sha256",
-    "external_emergency_sha256",
     "generated_at_utc",
 ]
 
